@@ -12,7 +12,12 @@ export default function Header() {
             </div>
             <div className="flex items-center space-x-2">
               <Mail size={16} className="text-blue-600" />
-              <span>fernando@grupomanzanares.com</span>
+              <a 
+                href="mailto:fernando@grupomanzanares.com"
+                className="text-gray-800 hover:text-blue-600 transition-colors"
+              >
+                fernando@grupomanzanares.com
+              </a>
             </div>
           </div>
           <div className="flex items-center space-x-2">

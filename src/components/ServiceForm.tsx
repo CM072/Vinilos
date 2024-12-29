@@ -1,24 +1,11 @@
 import { useParams, Link } from 'react-router-dom';
 import { services } from '../data/services';
 import { ArrowLeft, Check } from 'lucide-react';
-import { sendEmail } from '../utils/email';
+import ContactForm from './ContactForm';
 
 export default function ServiceForm() {
   const { service } = useParams();
   const serviceData = services.find(s => s.id === service);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    sendEmail({
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      message: formData.get('message') as string,
-      service: serviceData?.title || ''
-    });
-  };
 
   if (!serviceData) {
     return (
@@ -67,62 +54,7 @@ export default function ServiceForm() {
 
           <div className="bg-white rounded-lg p-8 shadow-md">
             <h2 className="text-2xl font-bold mb-6">Solicitar Información</h2>
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nombre completo
-                </label>
-                <input
-                  name="name"
-                  type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
-                </label>
-                <input
-                  name="email"
-                  type="email"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Teléfono
-                </label>
-                <input
-                  name="phone"
-                  type="tel"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Mensaje
-                </label>
-                <textarea
-                  name="message"
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Describe tu proyecto o necesidades..."
-                  required
-                ></textarea>
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
-              >
-                Enviar Solicitud
-              </button>
-            </form>
+            <ContactForm service={serviceData.title} />
           </div>
         </div>
       </div>
